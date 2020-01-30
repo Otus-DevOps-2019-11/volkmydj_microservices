@@ -1,0 +1,10 @@
+commands.txt
+/docker-monolith/infra/packer/variables.json
+/packer/variables.json
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfstate
+*.tfvars
+.terraform/
+/ansible/service_account.json
+*.retry
