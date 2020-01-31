@@ -18,13 +18,6 @@ module "app" {
   private_key     = var.private_key
 }
 
-
-# module "vpc" {
-#   source        = "../modules/vpc"
-#   zone          = "${var.zone}"
-#   source_ranges = "${var.my_ip}"
-# }
-
 resource "template_file" "dynamic_inventory" {
   template = file("dynamic_inventory.json")
   vars = {
