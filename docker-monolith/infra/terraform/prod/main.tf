@@ -19,8 +19,15 @@ module "app" {
 }
 
 
-module "vpc" {
-  source        = "../modules/vpc"
-  zone          = "${var.zone}"
-  source_ranges = "${var.my_ip}"
+# module "vpc" {
+#   source        = "../modules/vpc"
+#   zone          = "${var.zone}"
+#   source_ranges = "${var.my_ip}"
+# }
+
+resource "template_file" "dynamic_inventory" {
+  template = file("dynamic_inventory.json")
+  vars = {
+    app_ext_ip = "${module.app.app_external_ip}"
+  }
 }

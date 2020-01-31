@@ -8,3 +8,4 @@ commands.txt
 .terraform/
 /ansible/service_account.json
 *.retry
+vault.key
