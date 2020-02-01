@@ -1,0 +1,53 @@
+{
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{user `project_id`}}",
+            "image_name": "reddit-docker-host-{{timestamp}}",
+            "image_family": "reddit-docker-host",
+            "source_image_family": "{{user `source_image_family`}}",
+            "zone": "europe-west1-b",
+            "ssh_username": "appuser",
+            "machine_type": "{{user `machine_type`}}",
+            "disk_size": "10",
+            "disk_type": "pd-standard",
+            "image_description": "Reddit template small image for docker host",
+            "tags": "default"
+        }
+    ],
+    "provisioners": [
+        {
+          "type": "shell",
+          "inline": [
+              "sudo apt-get clean -y",
+              "sudo apt-get update -y",
+              "sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common",
+              "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
+              "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"",
+              "sudo apt-get update ",
+              "sudo apt-get install -y docker-ce docker-ce-cli containerd.io",
+              "sudo usermod -aG docker appuser"
+          ]
+        },
+        {
+            "type": "file",
+            "source": "files/docker.service",
+            "destination": "/tmp/docker.service"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo mv /tmp/docker.service /lib/systemd/system/docker.service",
+                "sudo chmod 644 /lib/systemd/system/docker.service",
+                "sudo systemctl daemon-reload",
+                "sudo systemctl restart docker"
+            ]
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "mkdir docker-monolith && cd docker-monolith"
+            ]
+        }
+    ]
+}
