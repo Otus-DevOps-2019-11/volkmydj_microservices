@@ -1,0 +1,5 @@
+project         = "docker-266610"
+public_key_path = "/home/devops/.ssh/appuser.pub"
+private_key     = "/home/devops/.ssh/appuser"
+disk_image      = "reddit-docker-host"
+app_name        = "reddit-docker"
