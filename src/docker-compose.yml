@@ -1,0 +1,43 @@
+version: '3.3'
+services:
+  post_db:
+    container_name: otus-post-db
+    image: mongo:3.2
+    volumes:
+      - post_db:/data/db
+    networks:
+      back_net:
+        aliases:
+          - post_db
+          - comment_db
+  ui:
+    container_name: otus-ui
+    build: ./ui
+    image: ${USERNAME}/ui:${TAG}
+    ports:
+      - ${HOST_PORT}:${CONTAINER_PORT}/tcp
+    networks:
+      - front_net
+  post:
+    container_name: otus-post
+    build: ./post-py
+    image: ${USERNAME}/post:${TAG}
+    networks:
+      - back_net
+      - front_net
+  comment:
+    container_name: otus-comment
+    build: ./comment
+    image: ${USERNAME}/comment:${TAG}
+    networks:
+      - back_net
+      - front_net
+
+volumes:
+  post_db:
+
+networks:
+  back_net:
+    external: false
+  front_net:
+    external: false
