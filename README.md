@@ -50,3 +50,18 @@ volkmydj microservices repository
 `docker run -d --network=reddit --network-alias=post volkmydj/post:1.0` \
 `docker run -d --network=reddit --network-alias=comment volkmydj/comment:1.0` \
 `docker run -d --network=reddit -p 9292:9292 volkmydj/ui:1.0`
+
+
+# Docker-4
+1. Изучены типы сетей в docker. Их функции, различия, особенности....
+2. Установлен docker-compose с github.
+3. Рассмотрены основные принципы применения docker-compose.
+4. Создан docker-compose.yml, в котором билд и запуск разбит на отдельные сервисы и описан декларативно.
+5. Базовое имя проекта образуется по принципу название папки + название сервиса: src_ui, src_post и т.д. \
+   Базовое имя проекта можно задать, если в docker-compose.yml определить в названии сервиса container_name:
+6. Все переменные определены в отдельном файле .env. Данный файл добавлен в .gitignore.
+7. Создан docker-compose.override.yml. С помощью данного файла мы можем изменять код каждого из приложений, не выполняя сборку. \
+   Также в данном файле определена команда запуска puma для ruby приложений в дебаг режиме и с двумя воркерами.
+
+### Как использовать
+`cd src && docker-compose up -d`
