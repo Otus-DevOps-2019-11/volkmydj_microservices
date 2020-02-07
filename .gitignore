@@ -9,3 +9,4 @@ commands.txt
 /ansible/service_account.json
 *.retry
 vault.key
+.env
