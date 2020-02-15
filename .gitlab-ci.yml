@@ -1,5 +1,4 @@
-image: centos:7
-# image: ruby:2.4.2
+image: ruby:2.4.2
 # variables:
 #   DOCKER_HOST: tcp://localhost:2375
 #   DOCKER_DRIVER: overlay2
@@ -36,9 +35,12 @@ build_job:
   #   - docker:19.03-dind
 
   stage: build
-  image: docker:19.03.1
-  tags:
-    - test
+  image: docker:19.03-dind
+  services:
+    - docker:19.03-dind
+
+  # tags:
+  #   - test
 
 
   script:
