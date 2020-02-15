@@ -28,6 +28,8 @@ build_job:
   #   DOCKER_DRIVER: overlay2
   # services:
   #  - docker:18.09-dind
+  tags:
+    - reddit-docker
 
 
   script:
