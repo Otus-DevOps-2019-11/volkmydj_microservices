@@ -29,7 +29,7 @@ build_job:
   script:
     # - echo 'Building'
     - cd reddit
-    - sudo docker build -t reddit:latest .
+    - docker build -t reddit:latest .
     - docker images
 
 test_unit_job:
