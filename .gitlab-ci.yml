@@ -23,9 +23,9 @@ build_job:
   #   - docker:19.03-dind
 
   stage: build
-  image: docker:19.03-dind
-  services:
-    - docker:19.03-dind
+  image: docker:19.03
+  # services:
+  #   - docker:19.03-dind
 
   tags:
     - test
