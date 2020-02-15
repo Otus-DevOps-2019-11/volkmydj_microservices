@@ -19,7 +19,9 @@ build_job:
   image: docker
   script:
     # - echo 'Building'
-    - docker --version
+    - cd reddit
+    - docker build -t reddit:latest .
+    - docker images
 
 test_unit_job:
   stage: test
