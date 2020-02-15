@@ -31,7 +31,6 @@ build_job:
 
 
   script:
-    # - echo 'Building'
     - cd reddit
     - docker build -t reddit:latest .
     - docker images
