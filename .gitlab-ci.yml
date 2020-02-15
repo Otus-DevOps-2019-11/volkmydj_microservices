@@ -1,4 +1,10 @@
-image: ruby:2.4.2
+image: docker:19.03
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:19.03-dind
 
 stages:
   - build
@@ -22,12 +28,6 @@ build_job:
   # services:
   #  - docker:18.09-dind
 
-  image: docker:19.03
-  variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: "/certs"
-  services:
-    - docker:19.03-dind
 
   script:
     # - echo 'Building'
