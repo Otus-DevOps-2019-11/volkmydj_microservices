@@ -22,9 +22,10 @@ build_job:
   # services:
   #  - docker:18.09-dind
 
-  image: docker:18.09
-  # variables:
-  #   DOCKER_TLS_CERTDIR: ""
+  image: docker:19.03
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: "/certs"
 
   script:
     # - echo 'Building'
