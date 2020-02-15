@@ -1,9 +1,10 @@
-image: ruby:2.4.2
-# variables:
-#   DOCKER_DRIVER: overlay2
-#   DOCKER_TLS_CERTDIR: "/certs"
-#   services:
-#     - docker:19.03-dind
+image: docker:19.03
+variables:
+   DOCKER_HOST: tcp://localhost:2375
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  services:
+    - docker:19.03-dind
 
 stages:
   - build
@@ -21,12 +22,8 @@ variables:
 
 build_job:
   stage: build
-  image: docker:19.03
-  # variables:
-  #   DOCKER_HOST: tcp://docker:2375/
-  #   DOCKER_DRIVER: overlay2
-  # services:
-  #  - docker:18.09-dind
+
+
   tags:
     - reddit-docker
 
