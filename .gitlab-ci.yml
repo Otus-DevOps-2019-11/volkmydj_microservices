@@ -26,6 +26,8 @@ build_job:
   variables:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: "/certs"
+  services:
+    - docker:19.03-dind
 
   script:
     # - echo 'Building'
