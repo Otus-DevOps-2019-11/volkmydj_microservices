@@ -1,4 +1,10 @@
 image: ruby:2.4.2
+.dind:
+  tags: [docker]
+  image: docker
+  services:
+    - docker:dind
+
 stages:
   - build
   - test
