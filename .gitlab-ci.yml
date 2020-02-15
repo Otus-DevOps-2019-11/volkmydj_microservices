@@ -11,13 +11,13 @@ variables:
 
 before_script:
   - cd reddit
-  - bundle install
+  # - bundle install
 
 
 build_job:
   image: docker:19.03-dind
   variables:
-    DOCKER_HOST: tcp://docker:2375/
+    # DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: "/certs"
   services:
@@ -42,6 +42,7 @@ test_unit_job:
   services:
     - mongo:latest
   script:
+    - bundle install
     - ruby simpletest.rb
 
 test_integration_job:
