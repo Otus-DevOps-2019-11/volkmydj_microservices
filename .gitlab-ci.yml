@@ -16,9 +16,15 @@ variables:
 
 build_job:
   stage: build
-  image: docker
-  # variables:
-  #   DOCKER_TLS_CERTDIR: ""
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+ services:
+   - docker:18.09-dind
+
+  # image: docker
+  # # variables:
+  # #   DOCKER_TLS_CERTDIR: ""
 
   script:
     # - echo 'Building'
