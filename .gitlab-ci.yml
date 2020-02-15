@@ -5,11 +5,11 @@ image: ruby:2.4.2
 #   DOCKER_TLS_CERTDIR: "/certs"
   # services:
   #   - docker:dind
-.dind:
-  tags: [docker]
-  image: docker
-  services:
-    - docker:dind
+# .dind:
+#   tags: [docker]
+#   image: docker
+#   services:
+#     - docker:dind
 
 stages:
   - build
@@ -26,9 +26,8 @@ variables:
 #   - bundle install
 
 build_job:
+  image: docker:19.03
   stage: build
-
-
   tags:
     - reddit-docker
 
