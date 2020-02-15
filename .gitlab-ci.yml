@@ -26,7 +26,11 @@ variables:
 #   - bundle install
 
 build_job:
-  image: docker:19.03
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:18.09-dind
   stage: build
   tags:
     - reddit-docker
