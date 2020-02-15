@@ -1,16 +1,4 @@
 image: ruby:2.4.2
-# variables:
-#   DOCKER_HOST: tcp://localhost:2375
-#   DOCKER_DRIVER: overlay2
-#   DOCKER_TLS_CERTDIR: "/certs"
-  # services:
-  #   - docker:dind
-# .dind:
-#   tags: [docker]
-#   image: docker
-#   services:
-#     - docker:dind
-
 stages:
   - build
   - test
@@ -21,10 +9,10 @@ stages:
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
-# before_script:
-#   - cd reddit
-#   - bundle install
-#
+before_script:
+  - cd reddit
+  # - bundle install
+
 
 build_job:
   # variables:
@@ -44,7 +32,6 @@ build_job:
 
 
   script:
-    - cd reddit
     - docker info
     - docker build -t reddit:latest .
     - docker images
