@@ -13,15 +13,9 @@ variables:
 
 before_script:
   - cd reddit
-  # - bundle install
 
 
 build_job:
-
-  variables:
-    # DOCKER_HOST: tcp://docker:2375/
-    # DOCKER_DRIVER: overlay2
-    # DOCKER_TLS_CERTDIR: "/certs"
   services:
     - docker:19.03.1-dind
 
@@ -36,8 +30,8 @@ build_job:
 
   script:
     - docker info
-    - docker build -t reddit-$CI_COMMIT_REF_NAME:$CI_PIPELINE_IID ./reddit
-    # - docker build -t reddit:latest .
+    - docker build -t reddit-$CI_COMMIT_REF_NAME:$CI_PIPELINE_IID . /reddit
+
     - docker images
 
 test_unit_job:
