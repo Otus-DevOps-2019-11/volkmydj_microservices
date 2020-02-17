@@ -60,7 +60,7 @@ branch review:
   image: docker:19.03
   stage: review
   tags:
-    - reddit
+    - reddit-deploy
   script:
     - echo 'CI_ENVIRONMENT_SLUG - '$CI_ENVIRONMENT_SLUG
     - echo "Deploy to $CI_ENVIRONMENT_SLUG"
