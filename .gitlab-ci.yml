@@ -67,7 +67,7 @@ branch review:
     - echo 'CI_ENVIRONMENT_SLUG - '$CI_ENVIRONMENT_SLUG
     - echo "Deploy to $CI_ENVIRONMENT_SLUG"
     - docker login -u $DOCKER_LOGIN -p $DOCKER_PASS
-    - docker run -d --name gitlab-reddit-$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID --rm -p 9292:9292 volkmyd/gitlab-reddit:$CI_PIPELINE_IID
+    - docker run -d --name gitlab-reddit-$CI_COMMIT_REF_NAME:$CI_PIPELINE_IID --rm -p 9292:9292 volkmyd/gitlab-reddit:$CI_PIPELINE_IID
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.com
