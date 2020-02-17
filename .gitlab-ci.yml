@@ -30,7 +30,10 @@ build_job:
 
   script:
     - docker info
-    - docker build -t reddit-$CI_COMMIT_REF_NAME:$CI_PIPELINE_IID . /reddit
+    - docker build -t reddit-$CI_COMMIT_REF_NAME:$CI_PIPELINE_IID .
+    - docker tag reddit-$CI_COMMIT_REF_NAME:$CI_PIPELINE_IID volkmydj/gitlab-reddit:$CI_PIPELINE_IID
+    - docker login -u $DOCKER_LOGIN -p $DOCKER_PASS
+    - docker push volkmydj/gitlab-reddit:$CI_PIPELINE_IID
 
     - docker images
 
