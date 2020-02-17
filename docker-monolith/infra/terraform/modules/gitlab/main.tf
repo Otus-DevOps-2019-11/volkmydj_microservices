@@ -33,13 +33,13 @@ resource "google_compute_address" "gitlab-docker_ip" {
 }
 
 resource "google_compute_firewall" "firewall_gitlab" {
-  name        = "allow-puma-default"
-  description = "Alow port for puma-host"
+  name        = "allow-gitlab-default"
+  description = "Alow port for docker-gitlab"
   network     = "default"
   allow {
     protocol = "tcp"
-    ports    = ["80","443"]
+    ports    = ["80","443","9292","2222"]
   }
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["gitlab-app-docker"]
+  target_tags   = ["gitlab-docker"]
 }

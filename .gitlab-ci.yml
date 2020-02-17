@@ -28,8 +28,8 @@ build_job:
   # # services:
   # #   - docker:19.03-dind
 
-  tags:
-    - test
+  # tags:
+  #   - test
 
 
   script:
