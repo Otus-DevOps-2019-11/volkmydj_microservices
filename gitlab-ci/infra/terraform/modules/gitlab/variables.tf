@@ -16,7 +16,7 @@ variable public_key_path {
 }
 
 variable app_disk_image {
-  default     = "gitlab-host"
+  default     = "gitlab-host-1582038017"
   description = "Disk Image"
 }
 

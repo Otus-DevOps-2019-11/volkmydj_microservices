@@ -1,6 +1,7 @@
 ---
 - name: Run container reddit-app
   hosts: all
+  remote_user: appuser
   become: true
   vars_files:
     - credentials.yml

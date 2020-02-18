@@ -1,0 +1,2 @@
+[app]
+appserver ansible_host=34.77.81.28

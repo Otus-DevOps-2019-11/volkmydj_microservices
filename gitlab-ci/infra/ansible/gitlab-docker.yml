@@ -1,0 +1,66 @@
+---
+- hosts: all
+  become: true
+  vars:
+    container_name: gitlab
+    gitlab_image: gitlab/gitlab-ce:latest
+    runner_image: gitlab/gitlab-runner:latest
+
+  tasks:
+    - name: Install pip module
+      apt:
+        name: python-pip
+        state: latest
+
+    - name: Install Docker module for python
+      pip:
+        name: docker
+
+    - name: Create directory
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: 755
+      with_items:
+        - /srv/gitlab/config
+        - /srv/gitlab/data
+        - /srv/gitlab/logs
+
+    - name: Pull GitLab docker image
+      docker_image:
+        name: "{{ gitlab_image }}"
+        source: pull
+
+    - name: Pull runner Docker image
+      docker_image:
+        name: "{{ runner_image }}"
+        source: pull
+
+    - name: Run Gitlab container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ gitlab_image }}"
+        state: started
+        restart: yes
+        tty: yes
+        ports:
+          - "80:80"
+          - "443:443"
+          - "2222:22"
+        volumes:
+          - /srv/gitlab/config:/etc/gitlab
+          - /srv/gitlab/data:/etc/data
+          - /srv/gitlab/logs:/etc/logs
+        env:
+          GITLAB_OMNIBUS_CONFIG: external_url 'http://34.77.81.28'
+
+    - name: Create runner containers
+      docker_container:
+        name: gitlab-runner
+        image: "{{ runner_image }}"
+        state: started
+        restart: yes
+        tty: yes
+        volumes:
+          - /srv/gitlab-runner/config:/etc?gitlab-runner
+          - /var/run/docker.sock:/var/run/docker.sock
