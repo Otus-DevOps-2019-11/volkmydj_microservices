@@ -14,19 +14,13 @@ variables:
 before_script:
   - cd reddit
 
-
 build_job:
   services:
     - docker:19.03.1-dind
 
   stage: build
-  # image: docker:19.03
-  # # services:
-  # #   - docker:19.03-dind
   tags:
     - reddit-deploy
-
-
   script:
     - docker info
     - docker build -t reddit-$CI_COMMIT_REF_NAME:$CI_PIPELINE_IID .
@@ -66,7 +60,6 @@ branch review:
   script:
     - echo 'CI_ENVIRONMENT_SLUG - '$CI_ENVIRONMENT_SLUG
     - echo "Deploy to $CI_ENVIRONMENT_SLUG"
-    - docker login -u $DOCKER_LOGIN -p $DOCKER_PASS
     - docker ps --filter name=gitlab-reddit-gitlab-* --filter status=running -aq | xargs docker stop
     - docker run -d --name gitlab-reddit-$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID --rm -p 9292:9292 volkmydj/gitlab-reddit:$CI_PIPELINE_IID
   environment:

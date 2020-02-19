@@ -50,11 +50,6 @@ variable app_disk_image {
   default     = "gitlab-host-1582038017"
 }
 
-variable db_disk_image {
-  description = "Disk image for reddit db"
-  default     = "reddit-db-base"
-}
-
 variable my_ip {
   description = "My IP"
 }

@@ -6,7 +6,7 @@ services:
     hostname: 'gitlab.example.com'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://<YOUR-VM-IP>'
+        external_url 'http://172.30.172.131'
         ports:
           - '80:80'
           - '443:443'
