@@ -65,3 +65,23 @@ volkmydj microservices repository
 
 ### Как использовать
 `cd src && docker-compose up -d`
+
+
+# gitlab-ci-1
+1. Пакером подготовлен специальный image с установленным Dockr Engine и Docker-Compose.
+2. Терраформом поднят инстанс с поготовленным образом. Проброшены нужные порт.
+3. Gitlab-CE (omnibus) разворачивается в контейнере на инстансе GCP с помощью Ansible.
+4. Один gitlab-runner развернут по примеру в ДЗ, другой с помощью роли Ansible (задание со *).
+5. В шаг build добавлена сборка контейнера с приложением reddit. (задание со *).
+6. Установка и регистрация ранеров осуществляется с помощью Ansible (задание со *).
+
+### Как использовать :
+`cd gitlab-ci/infra/terraform ` \
+`terraform init && terraform plan` \
+`terraform apply` \
+`cd ansible` \
+`ansible-playbook gitlab-docker.yml --check` \
+`ansible-playbook gitlab-docker.yml` \
+`ansible-playbook gitlab-runners.yml --check` \
+`ansible-playbook gitlab-runners.yml` \
+Done!
