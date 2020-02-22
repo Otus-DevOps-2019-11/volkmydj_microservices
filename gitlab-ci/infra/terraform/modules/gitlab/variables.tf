@@ -7,16 +7,16 @@ variable app_name {
 }
 
 variable region {
-  description = "Region"
   default     = "europe-west1"
+  description = "Region"
 }
 
 variable public_key_path {
-
   description = "Path to the public key used for ssh access"
 }
 
-variable disk_image {
+variable app_disk_image {
+  default     = "gitlab-host-1582038017"
   description = "Disk Image"
 }
 
@@ -30,35 +30,22 @@ variable zone {
 }
 
 variable users {
-  default = ["appuser", "appuser1", "appuser2", "appuser3"]
+  default     = ["appuser"]
+  description = "Users"
 }
 
 variable service_port {
-  default = 9292
+  default     = 9292
+  description = "Service Port"
 }
 
 variable service_port_name {
-  default = "tcp-9292"
+  default     = "tcp-9292"
+  description = "Name for service port"
 }
+
 variable instances_count {
-  type    = number
-  default = 1
-}
-
-variable app_disk_image {
-  description = "Disk image for reddit app"
-  default     = "gitlab-host"
-}
-
-variable db_disk_image {
-  description = "Disk image for reddit db"
-  default     = "reddit-db-base"
-}
-
-variable my_ip {
-  description = "My IP"
-}
-
-variable source_ranges {
-  default = "0.0.0.0/0"
+  type        = number
+  default     = 1
+  description = "Count"
 }

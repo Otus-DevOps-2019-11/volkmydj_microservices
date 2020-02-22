@@ -1,0 +1,16 @@
+gitlab_runner_registration_token: 'Lsg54mqveeh4Q12Ty4ye'
+gitlab_runner_coordinator_url: "http://34.77.81.28/"
+gitlab_runner_package_name: gitlab-runner
+gitlab_runner_runners:
+  - name: "Privileged Docker Gitlab Runner"
+    token: 'Lsg54mqveeh4Q12Ty4ye'
+    executor: docker
+    docker_image: 'docker:19.03'
+    tags:
+      - docker
+      - linux
+      - alpine
+    docker_volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/cache"
+    docker_privileged: false

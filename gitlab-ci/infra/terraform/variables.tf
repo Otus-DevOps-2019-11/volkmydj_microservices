@@ -47,12 +47,7 @@ variable instances_count {
 
 variable app_disk_image {
   description = "Disk image for reddit app"
-  default     = "gitlab-host"
-}
-
-variable db_disk_image {
-  description = "Disk image for reddit db"
-  default     = "reddit-db-base"
+  default     = "gitlab-host-1582038017"
 }
 
 variable my_ip {
