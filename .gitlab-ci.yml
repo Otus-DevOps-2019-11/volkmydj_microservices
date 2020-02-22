@@ -58,8 +58,6 @@ branch review:
   tags:
     - reddit-deploy
   script:
-    - ls -lh
-    - status_container.sh
     - echo 'CI_ENVIRONMENT_SLUG - '$CI_ENVIRONMENT_SLUG
     - echo "Deploy to $CI_ENVIRONMENT_SLUG"
     #- docker ps --filter name=gitlab-reddit-gitlab-* --filter status=running -aq | xargs docker stop
