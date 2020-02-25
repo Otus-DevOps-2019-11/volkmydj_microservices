@@ -12,7 +12,6 @@ services:
           - comment_db
   ui:
     container_name: otus-ui
-    build: ./ui
     image: ${USERNAME}/ui:${TAG}
     ports:
       - ${HOST_PORT}:${CONTAINER_PORT}/tcp
@@ -20,21 +19,36 @@ services:
       - front_net
   post:
     container_name: otus-post
-    build: ./post-py
     image: ${USERNAME}/post:${TAG}
     networks:
       - back_net
       - front_net
   comment:
     container_name: otus-comment
-    build: ./comment
     image: ${USERNAME}/comment:${TAG}
     networks:
       - back_net
       - front_net
 
+  prometheus:
+    image: ${USERNAME}/prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
+    networks:
+      - back_net
+      - front_net
+
+
+
 volumes:
   post_db:
+  prometheus_data:
 
 networks:
   back_net:
