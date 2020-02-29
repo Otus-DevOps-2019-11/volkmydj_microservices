@@ -100,5 +100,4 @@ networks:
   back_net:
     external: false
   front_net:
-    external: false
-    
+    external: false  
