@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   post_db:
-    container_name: post-db
+    container_name: post_db
     image: ${DB_IMAGE}
     volumes:
       - post_db:/data/db
@@ -95,9 +95,3 @@ services:
 volumes:
   post_db:
   prometheus_data:
-
-# networks:
-#   back_net:
-#     external: false
-#   front_net:
-#     external: false  
