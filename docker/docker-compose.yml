@@ -74,7 +74,7 @@ services:
   mongo_exporter:
     build: ../monitoring/mongodb_exporter
     container_name: mongo-exporter
-    image: ${USER_NAME}/mongodb_exporter:${MDB_EXPORTER_VERSION}
+    image: ${USERNAME}/mongodb_exporter:${MDB_EXPORTER_VERSION}
     networks:
       back_net:
         aliases: 
