@@ -10,4 +10,3 @@ commands.txt
 *.retry
 vault.key
 .env
-mongodb_exporter
