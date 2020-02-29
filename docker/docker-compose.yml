@@ -1,4 +1,4 @@
-version: '3.6'
+version: "3.6"
 services:
   post_db:
     container_name: post-db
@@ -96,8 +96,8 @@ volumes:
   post_db:
   prometheus_data:
 
-networks:
-  back_net:
-    external: false
-  front_net:
-    external: false  
+# networks:
+#   back_net:
+#     external: false
+#   front_net:
+#     external: false  
