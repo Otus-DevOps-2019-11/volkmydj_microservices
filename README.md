@@ -94,6 +94,7 @@ Done!
  - mongodb-exporter (задание со *)
  - blackbox-exporter (задание со *)
 4. Для упрощения рутины развертывания проекта создан Makefile (задание со *).
+5. Ссылка на registry: `https://hub.docker.com/u/volkmydj` 
 
 ### Как использовать
 
