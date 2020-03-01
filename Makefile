@@ -1,40 +1,47 @@
 SHELL = /bin/sh
 PREFIX = $(shell pwd)
-# VERSION=$(shell git describe --tags)
 VERSION=1.0
-REGISTRY=volkmydj
-# SRC_DIRS=comment post-py ui
-# dpl ?= deploy.env
-# include $(dpl)
-# export $(shell sed 's/=.*//' $(dpl))
+USER_NAME=volkmydj
 
-SERVICES=comment post ui blackbox-exporter prometheus mongo-exporter
+### BUild ###
+build_comment:
+	cd src/comment && bash ./docker_build.sh
 
-build/all: $(addprefix build/,$(SERVICES))
-push/all : $(addprefix push/,$(SERVICES))
+build_post:
+	cd src/post-py && bash ./docker_build.sh
 
-$(addprefix build/,$(SERVICES)):
-	@echo '>> building $(notdir $@) image <<'
-	@docker build -t $(USERNAME)/$(notdir $@):$(VERSION) $(PREFIX)/src/$(notdir $@)/
+build_ui:
+	cd src/ui && bash ./docker_build.sh
 
-$(addprefix push/,$(SERVICES)):
-	@echo '>> pushing $(notdir $@) image <<'
-	@docker push $(USERNAME)/$(notdir $@):$(VERSION)
+build_prometheus:
+	cd ./monitoring/prometheus && bash docker_build.sh
 
-$(addprefix rmi/,$(SERVICES)):
-	@echo '>> remove $(notdir $@) image <<'
-	@docker rmi $(USERNAME)/$(notdir $@):$(VERSION)
+build: build_post build_comment build_ui build_prometheus
 
-$(addprefix up/,$(SERVICES)):
-	@docker-compose --project-directory docker -f docker/docker-compose.yml up -d $(notdir $@)
-
-$(addprefix kill/,$(SERVICES)):
-	docker-compose --project-directory docker -f docker/docker-compose.yml kill $(notdir $@)
+### UP ####
 
 up:
-	@echo '>> running app <<'
-	@docker-compose --project-directory docker -f docker/docker-compose.yml up -d
+	echo '>> running app <<'
+	docker-compose --project-directory docker -f docker/docker-compose.yml up -d
+
+### Down ###
 
 down:
-	@echo '>> stoping app <<'
-	@docker-compose --project-directory docker -f docker/docker-compose.yml down
+	echo '>> stoping app <<'
+	docker-compose --project-directory docker -f docker/docker-compose.yml down
+
+### Push ###
+
+push_comment:
+	docker push $(USER_NAME)/comment:$(VERSION)
+
+push_post:
+	docker push ${USER_NAME}/post:$(VERSION)
+
+push_ui:
+	docker push ${USER_NAME}/ui:$(VERSION)
+
+push_prometheus:
+	docker push ${USER_NAME}/prometheus:$(VERSION)
+
+push: push_comment push_post push_ui push_prometheus
