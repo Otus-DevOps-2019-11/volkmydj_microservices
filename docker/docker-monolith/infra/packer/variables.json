@@ -1,0 +1,5 @@
+{
+    "project_id": "docker-266610",
+    "source_image_family": "ubuntu-1604-lts",
+    "machine_type": "n1-standard-1"
+}

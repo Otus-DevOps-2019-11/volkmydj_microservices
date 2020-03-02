@@ -85,3 +85,19 @@ volkmydj microservices repository
 `ansible-playbook gitlab-runners.yml --check` \
 `ansible-playbook gitlab-runners.yml` \
 Done!
+
+# monitoring-1
+1. Добавили в проект систему мониторинга Prometheus.
+2. Prometheus поднимаем в докере. Описание процесса добавили в docker-compose.yml проекта.
+3. Для сбора метрик добавили несколько экспортеров:
+ - node-exporter
+ - mongodb-exporter (задание со *)
+ - blackbox-exporter (задание со *)
+4. Для упрощения рутины развертывания проекта создан Makefile (задание со *).
+5. Ссылка на registry: `https://hub.docker.com/u/volkmydj` 
+
+### Как использовать
+
+`git clone .....`
+`make up`
+Done!
