@@ -24,16 +24,14 @@ services:
     container_name: post
     image: ${USER_NAME}/post
     networks:
-      - front_net
-      - back_net
-    #   front_net:
-    #     aliases:
-    #       - post
-    #       - comment
-    #   back_net:
-    #     aliases:
-    #       - post
-    #       - comment
+      front_net:
+        aliases:
+          - post
+          - comment
+      back_net:
+        aliases:
+          - post
+          - comment
     ports:
       - '5000:5000'
   comment:
@@ -41,14 +39,12 @@ services:
     container_name: comment
     image: ${USER_NAME}/comment:${COMMENT_VERSION}
     networks:
-      - front_net
-      - back_net
-      # front_net:
-      #   aliases:
-      #     - comment
-      # back_net:
-      #   aliases:
-      #      - comment
+      front_net:
+        aliases:
+          - comment
+      back_net:
+        aliases:
+           - comment
 
 volumes:
   post_db:
@@ -62,8 +58,7 @@ networks:
       #     - subnet: 10.0.1.0/24
     back_net:
       name: back_net
-      # ipam:
-      #   driver: default
-      #   config:
-      #     - subnet: 10.0.2.0/24
-
+    #   # ipam:
+    #   #   driver: default
+    #   #   config:
+    #   #     - subnet: 10.0.2.0/24
