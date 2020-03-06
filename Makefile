@@ -18,17 +18,27 @@ build_prometheus:
 
 build: build_post build_comment build_ui build_prometheus
 
-### UP ####
+### APP UP ####
 
-up:
+up_app:
 	echo '>> running app <<'
 	docker-compose --project-directory docker -f docker/docker-compose.yml up -d
 
-### Down ###
+### APP Down ###
 
-down:
+down_app:
 	echo '>> stoping app <<'
 	docker-compose --project-directory docker -f docker/docker-compose.yml down
+
+### Monitoring UP
+up_monitoring:
+	echo '>> running monitoring <<'
+	docker-compose --project-directory docker -f docker/docker-compose-monitoring.yml up -d
+
+### Monitoring Down
+down_monitoring:
+	echo '>> stoping monitoring <<'
+	docker-compose --project-directory docker -f docker/docker-compose-monitoring.yml down
 
 ### Push ###
 
@@ -44,4 +54,7 @@ push_ui:
 push_prometheus:
 	docker push ${USER_NAME}/prometheus:$(VERSION)
 
-push: push_comment push_post push_ui push_prometheus
+push_alertmanager:
+	docker push ${USER_NAME}/alertmanager:${VERSION}
+
+push: push_comment push_post push_ui push_prometheus push_alertmanager
