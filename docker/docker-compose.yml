@@ -44,7 +44,7 @@ services:
           - comment
       back_net:
         aliases:
-           - comment
+          - comment
 
 volumes:
   post_db:
