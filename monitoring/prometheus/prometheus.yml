@@ -33,10 +33,15 @@
         - targets:
           - 'post:5000'
 
-    # - job_name: 'docker'
-    #   static_configs:
-    #     - targets:
-    #       - 'docker-host:9323'
+    - job_name: 'docker'
+      static_configs:
+        - targets:
+          - 'docker-host:9323'
+
+    - job_name: 'stackdriver'
+      static_configs:
+        - targets:
+          - 'stackdriver:9255'
   
   rule_files:
     - "alerts.yml"

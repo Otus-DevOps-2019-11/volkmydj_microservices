@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eu
 
-docker build -t $USER_NAME/grafana .
+docker build -t $USER_NAME/grafana:${VERSION} .

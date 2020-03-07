@@ -17,7 +17,7 @@ datasources:
   type: prometheus
   access: proxy
   orgId: 1
-  url: http://prometheus:9090
+  url: http://trickster:9089
   password:
   user:
   database:
@@ -35,3 +35,4 @@ datasources:
     tlsClientKey: "..."
   version: 1
   editable: true
+  

@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 services:
   post_db:
     container_name: post_db
@@ -50,5 +50,7 @@ volumes:
   post_db:
 
 networks:
-  ront_net:
+  front_net:
+    name: front_net
   back_net:
+    name: back_net
