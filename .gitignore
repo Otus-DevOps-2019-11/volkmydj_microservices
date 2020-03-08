@@ -10,3 +10,4 @@ commands.txt
 *.retry
 vault.key
 .env
+otus_microservices.code-workspace

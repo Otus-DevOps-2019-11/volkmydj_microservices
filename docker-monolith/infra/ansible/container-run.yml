@@ -1,0 +1,28 @@
+---
+- name: Run container reddit-app
+  hosts: all
+  remote_user: appuser
+  become: true
+  vars_files:
+    - credentials.yml
+  tasks:
+    - name: Install python-docker
+      apt:
+        name: python-docker
+        update_cache: yes
+        state: present
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      changed_when: false
+
+    - name: Log into DockerHub
+      docker_login:
+        username: "{{ docker_hub_username }}"
+        password: "{{ docker_hub_password }}"
+
+    - name: Run docker container
+      docker_container:
+        name: mycontainer
+        state: started
+        image: volkmydj/otus-reddit:1.0
+        ports: "9292:9292"
