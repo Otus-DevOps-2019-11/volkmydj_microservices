@@ -34,7 +34,10 @@ build_trickster:
 build_stackdriver:
 	cd ./monitoring/stackdriver && bash docker_build.sh
 
-build: build_post build_comment build_ui build_prometheus build_alertmanager build_grafana build_telegraf build_trickster build_stackdriver
+build_fluentd:
+	cd ./logging/fluentd && bash docker_build.sh
+
+build: build_post build_comment build_ui build_prometheus build_alertmanager build_grafana build_telegraf build_trickster build_stackdriver build_fluentd
 
 ### APP UP ####
 
@@ -58,6 +61,15 @@ up_monitoring:
 down_monitoring:
 	echo '>> stoping monitoring <<'
 	docker-compose --project-directory docker -f docker/docker-compose-monitoring.yml down
+
+### Logging up
+up_logging:
+	echo '>> running logging <<'
+	docker-compose --project-directory docker -f docker/docker-compose-logging.yml up -d
+### Logging Down
+down_logging:
+	echo '>> stoping logging <<'
+	docker-compose --project-directory docker -f docker/docker-compose-logging.yml down
 
 ### Push ###
 
@@ -88,11 +100,14 @@ push_trickster:
 push_stackdriver:
 	docker push ${USER_NAME}/stackdriver:${VERSION}
 
-push: push_comment push_post push_ui push_prometheus push_alertmanager push_grafana push_telegraf push_trickster push_stackdriver
+push_fluentd:
+	docker push ${USER_NAME}/stackdriver:${VERSION}
+
+push: push_comment push_post push_ui push_prometheus push_alertmanager push_grafana push_telegraf push_trickster push_stackdriver push_fluentd
 
 ### All Up
-up: up_app up_monitoring build
+up: up_app up_monitoring up_logging
 
 
 ### All Down
-down: down_app down_monitoring
+down: down_app down_monitoring down_logging

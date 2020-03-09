@@ -124,3 +124,56 @@ Done!
 Done!
 
 [My docker hub](https://hub.docker.com/u/volkmydj)
+
+
+# logging-1
+
+1. В диретории logging созда папку fluentd, где создал Dockerfile для образа fluentd.
+2. Cоздал конфигурационный файл fluent.conf в диретории fluentd.
+3. В дирректории docker создал файл для поднятия стека EFK `docker-compose-logging.yml`.
+4. Изменил тэги микросервисов в файле .env на logging.
+5. Для микросервисов post и ui добавлен драйвер логирования fluentd.
+6. В fluentd.conf добавлен фильтр парсинга структурированных логов JSON.
+7. В fluentd.conf добавлен фильтр парсинга неструктурированных логов.
+8. Реализован функционал использования grok-шаблонов.
+9. Для полного парсинга неструктурированного лога добавлена дополнительная секция фильтра:
+```
+<filter service.ui>
+  @type parser
+  format grok
+  grok_pattern service=%{WORD:service} \| event=%{WORD:event} \| path=%{URIPATH:path} \| request_id=%{GREEDYDATA:request_id} \| remote_addr=%{IPORHOST:remote_addr} \| method=%{GREEDYDATA:method} \| response_status=%{NUMBER:response_status}
+  key_name message
+  reserve_data false
+</filter>
+```
+по аналогии с 
+```
+<filter service.ui>
+  @type parser
+  format grok
+  grok_pattern service=%{WORD:service} \| event=%{WORD:event} \| request_id=%{GREEDYDATA:request_id} \| message='%{GREEDYDATA:message}'
+  key_name message
+  reserve_data true
+</filter>
+```
+10. Добавлен сервис распределенного трейсинга `Zipkin`.
+11. В файле .env добавлена информация о том, что Zipkin активен.
+12. Zipkin также добавлен в одну сеть с микросервисами.
+13. В задании со * найдена причина некоректного работа микросервиса post. С помощью Zipkin была диагностирована следующая аномалия. Страница долго загружалась. На этапе поиска записи в БД процесс подвисал примерно на 3 сек. После анализа кода микросервиса post была выявлена причина. Всему виной оказалась строка  `time.sleep(3)` в блоке кода:
+```
+        stop_time = time.time()  # + 0.3
+        resp_time = stop_time - start_time
+        app.post_read_db_seconds.observe(resp_time)
+        time.sleep(3)
+        log_event('info', 'post_find',
+                  'Successfully found the post information',
+                  {'post_id': id})
+        return dumps(post)
+```   
+Закоментировав данную строку, приложение стало корректно обрабатывать запросы.
+
+### Как использовать
+
+`git clone...`
+`make up`
+Done!
