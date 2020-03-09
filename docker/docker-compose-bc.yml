@@ -30,7 +30,7 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: service.ui
-    
+
   post:
     image: ${USER_NAME}/post:${BUGGET_CODE}
     container_name: post

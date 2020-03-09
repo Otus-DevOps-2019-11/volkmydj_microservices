@@ -35,4 +35,3 @@ datasources:
     tlsClientKey: "..."
   version: 1
   editable: true
-  
