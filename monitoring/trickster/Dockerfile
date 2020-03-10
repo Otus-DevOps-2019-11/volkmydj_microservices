@@ -1,4 +1,2 @@
 FROM tricksterio/trickster
-ADD trickster.conf /etc/trickster/trickster.conf 
-
-
+ADD trickster.conf /etc/trickster/trickster.conf

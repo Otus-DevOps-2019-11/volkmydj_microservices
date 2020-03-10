@@ -11,3 +11,4 @@ commands.txt
 vault.key
 .env
 otus_microservices.code-workspace
+.pre-commit-config.yml

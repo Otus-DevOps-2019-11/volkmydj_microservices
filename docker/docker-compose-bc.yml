@@ -13,10 +13,14 @@ services:
           - post_db
           - comment_db
   ui:
-    image: ${USER_NAME}/ui:${UI_VERSION}
+    image: ${USER_NAME}/ui:${BUGGET_CODE}
     container_name: ui
     environment:
       - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=5000
+      - COMMENT_SERVICE_HOST=comment
+      - COMMENT_SERVICE_PORT=9292
     ports:
       - ${UI_PORTS}
     networks:
@@ -28,10 +32,12 @@ services:
         tag: service.ui
 
   post:
-    image: ${USER_NAME}/post:${POST_VERSION}
+    image: ${USER_NAME}/post:${BUGGET_CODE}
     container_name: post
     environment:
       - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+      - POST_DATABASE_HOST=post_db
+      - POST_DATABASE=posts
     networks:
       front_net:
         aliases:
@@ -50,10 +56,12 @@ services:
         tag: service.post
 
   comment:
-    image: ${USER_NAME}/comment:${COMMENT_VERSION}
+    image: ${USER_NAME}/comment:${BUGGET_CODE}
     container_name: comment
     environment:
       - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+      - COMMENT_DATABASE_HOST=comment_db
+      - COMMENT_DATABASE=comments
     networks:
       front_net:
         aliases:

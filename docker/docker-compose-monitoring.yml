@@ -62,7 +62,7 @@ services:
     image: ${USER_NAME}/alertmanager:${ALERTMANAGER_VERSION}
     container_name: alertmanager
     command:
-      - '--config.file=/etc/alertmanager/config.yml' 
+      - '--config.file=/etc/alertmanager/config.yml'
     ports:
       - 9093:9093
     networks:
@@ -97,7 +97,7 @@ services:
     container_name: blackbox-exporter
     networks:
       - front_net
-  
+
   trickster:
     build: ../monitoring/trickster
     image: ${USER_NAME}/trickster:${TRICKSTER_VERSION}
@@ -133,4 +133,3 @@ volumes:
 networks:
   front_net:
     external: true
-
