@@ -12,3 +12,14 @@ vault.key
 .env
 otus_microservices.code-workspace
 .pre-commit-config.yml
+gce-service-account.json
+vault.key
+gce.py
+gce.ini
+__pycache__
+.venv
+*.pyc
+.env
+.DS_Store
+/kubernetes/ansible
+.vscode
