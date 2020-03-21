@@ -187,3 +187,59 @@ Done!
 4. Проверен деплоймент всех сервисов приложения.
 5. Все сертификаты и конфигурации закоммичены в репозиторий.
 6. Изучены несколько варинатов полного деплоя кластера. Но мной принято решение не использовать данные вырианты. Думаю, что было бы логичней использовать связку terraform+ansible.
+
+
+# kuberenetes-2
+1. Поднят кластер minikube для изучения основных принципов управления и деплоя в кластер
+2. Рассмотрены различные контексты kubectl.
+3. Расссмотрены основные компоненты кластера.
+4. Рассмотрен ресурс Deployment. Также рассмотрен процесс его деплоя.
+5. Рассмотрена такая абстракция как Service.
+6. Рассмотрены различные варианты форвардинга.
+7. Рассмотрен аддон - dashboard. Произведен его деплой.
+8. Рассмотрена такая сущность как NameSpace.
+9. Описан манифест namespace dev, а также произведен его деплой.
+10. Через консоль GCP развернут кластер GKE.
+11. Созданы правила firewall для возможности подключения к нему снаружи.
+12. Подключен аддон dashboard-kubernetes. (Warning: The open source Kubernetes Dashboard addon is deprecated for clusters on GKE and will be removed as an option in version 1.15. It is recommended to use the alternative Cloud Console dashboards described on this page.)
+13. Также, как и в minikube задеплоны  namespace dev и reddit-app.
+14. Создано описание поднятия кластера GKE с помощью terraform.
+15. Через terraform также описано подключение аддона dashboard-kubernetes и правила firewall.
+16. Написаны манифесты для создания пользователя ServiceAccount и присвоения ему роли cluster-admin.
+
+
+### Как использовать
+1. `cd .../terraform` \
+2. `terraform init` && `terraform apply`
+3. `gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project docker-266610`
+4. `kubectl apply -f ./kubernetes/reddit/dev-namespace.yml`
+5. `kubectl apply -f ./kubernetes/reddit/ -n dev`
+   ##### Check application functionality
+- `kubectl get nodes -o wide`
+- `kubectl describe service ui -n dev | grep NodePort`
+- `http://<node-ip>:<NodePort>`
+6. Install dashboard: \
+   6.1. Create ServiceAccount: `kubectl apply -f ./kubernetes/dashboard/dashboard-adminuser.yml` \
+   6.2. Create ClusterRoleBinding: `kubectl apply -f ./kubernetes/dashboard/cluster-admin.yml` \
+   6.3. Get Bearer Token: `kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')` \
+   It should print something like:
+```
+Name:         admin-user-token-v57nw
+Namespace:    kube-system
+Labels:       <none>
+Annotations:  kubernetes.io/service-account.name: admin-user
+              kubernetes.io/service-account.uid: 0303243c-4040-4a58-8a47-849ee9ba79c1
+
+Type:  kubernetes.io/service-account-token
+
+Data
+====
+ca.crt:     1066 bytes
+namespace:  20 bytes
+token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLXY1N253Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIwMzAzMjQzYy00MDQwLTRhNTgtOGE0Ny04NDllZTliYTc5YzEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6YWRtaW4tdXNlciJ9.Z2JrQlitASVwWbc-s6deLRFVk5DWD3P_vjUFXsqVSY10pbjFLG4njoZwh8p3tLxnX_VBsr7_6bwxhWSYChp9hwxznemD5x5HLtjb16kI9Z7yFWLtohzkTwuFbqmQaMoget_nYcQBUC5fDmBHRfFvNKePh_vSSb2h_aYXa8GV5AcfPQpY7r461itme1EXHQJqv-SN-zUnguDguCTjD80pFZ_CmnSE1z9QdMHPB8hoB4V68gtswR1VLa6mSYdgPwCHauuOobojALSaMc3RH7MmFUumAgguhqAkX3Omqd3rJbYOMRuMjhANqd08piDC3aIabINX6gP5-Tuuw2svnV6NYQ
+
+```
+7. `kubectl proxy`
+8. Go to: `http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
+9. Now copy the token and paste it into Enter token field on login screen.
+10. Click Sign in button and that's it. You are now logged in as an admin.
