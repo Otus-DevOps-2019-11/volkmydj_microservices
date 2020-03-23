@@ -9,7 +9,7 @@
     - name: Install python-docker
       apt:
         name: python-docker
-        update_cache: yes
+        update_cache: true
         state: present
     - name: Install python for Ansible
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)

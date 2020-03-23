@@ -243,3 +243,26 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 8. Go to: `http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
 9. Now copy the token and paste it into Enter token field on login screen.
 10. Click Sign in button and that's it. You are now logged in as an admin.
+
+
+# kuberbetes-3
+1. Расссмотрено взаимодействие микросервисов при помощи kube-dns.
+2. Расссмотрено взаимодействие микросервисов при помощи iptables.
+3. Рассмотрен вариант внешнего доступа к кластеру при помощи LoadBalancer.
+4. Рассмотрен вариант внешнего доступа к кластеру при помощи Ingress.
+5. Рассмотрены основные задачи, решаемые с помощью Ingress’ов.
+6. Защитил наш сервис ui с помощью TLS.
+7. Настроил Ingress на прием только HTTPS траффика.
+8. Описан создаваемый объект Secret в виде Kubernetes- манифеста. (задание со *).
+9. Рассмотрен NetworkPolicy - инструмент для декларативного описания потоков трафика.
+10. Обновлен mongo-network-policy.yml так, чтобы post-сервис доходил до базы данных.
+11. Рассмотрен механизм PersistentVolume.
+12. Рассмотрен механизм создания запроса на выдачу - PersistentVolumeClaim.
+13. Рассмотрен механизм создания хранилища при необходимости и в автоматическом режиме, с помощью StorageClass.
+
+### Как использовать
+1. `cd .../terraform` \
+2. `terraform init` && `terraform apply`
+3. `gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project docker-266610`
+4. `kubectl apply -f ./kubernetes/reddit/dev-namespace.yml`
+5. `kubectl apply -f ./kubernetes/reddit/ -n dev`
