@@ -245,7 +245,7 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 10. Click Sign in button and that's it. You are now logged in as an admin.
 
 
-# kuberbetes-3
+# kubernetes-3
 1. Расссмотрено взаимодействие микросервисов при помощи kube-dns.
 2. Расссмотрено взаимодействие микросервисов при помощи iptables.
 3. Рассмотрен вариант внешнего доступа к кластеру при помощи LoadBalancer.
