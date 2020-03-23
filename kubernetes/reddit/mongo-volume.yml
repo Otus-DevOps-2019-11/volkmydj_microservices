@@ -10,5 +10,5 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   gcePersistentDisk:
-    fsType: "ext4" 
+    fsType: "ext4"
     pdName: "reddit-mongo-disk"
