@@ -266,3 +266,11 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 3. `gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project docker-266610`
 4. `kubectl apply -f ./kubernetes/reddit/dev-namespace.yml`
 5. `kubectl apply -f ./kubernetes/reddit/ -n dev`
+
+
+# kubernetes-4
+
+Уважаемые коллеги из Otus, такого п....ца как в этом ДЗ я пока не встречал в ДЗ до этого. Т.к. в Slack обычно отмалчиваются на нарекания по качеству ДЗ, то оставлю это здесь. \
+`Переделайте конкретно это ДЗ. Уберите не логичную последовательность, ошибки и безобразную подачу материала в ДЗ. Вам самим то не стыдно?`
+
+P.S. Какое ДЗ такое и описание.

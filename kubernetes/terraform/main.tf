@@ -24,20 +24,11 @@ resource "google_container_cluster" "cluster-1" {
   }
 
   addons_config {
-    # http_load_balancing {
-    #   disabled = false
-    # }
-
     network_policy_config {
       disabled = false
     }
-
   }
 
-  # network_policy {
-  #   enabled  = true
-  #   provider = "CALICO"
-  # }
 }
 
 resource "google_container_node_pool" "reddit_app-pool" {
