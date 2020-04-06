@@ -24,3 +24,4 @@ __pycache__
 /kubernetes/ansible
 .vscode
 kubernetes/Gitlab_ci
+kubernetes/kubernetes-latest.sh
