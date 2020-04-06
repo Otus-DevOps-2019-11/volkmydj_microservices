@@ -274,3 +274,31 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 `Переделайте конкретно это ДЗ. Уберите не логичную последовательность, ошибки и безобразную подачу материала в ДЗ. Вам самим то не стыдно?`
 
 P.S. Какое ДЗ такое и описание.
+
+# kubernetes-5
+### Как использовать
+
+Все команды выполняются для helm3.
+
+1. Установка ingress контроллера: \
+   `helm install nginx-ingress stable/nginx-ingress`
+2.  Установка prometheus: \
+   `cd kubernetes/Charts/prometheus && helm upgrade prom . -f custom_values.yml --install`
+3.  Установка приложения reddit в namespace=default: \
+   `cd kubernetes/Charts/ && helm upgrade reddit-test ./reddit --install`
+4. Создание пространств stagging и production. Запуск приложения reddit в них: \
+   `kubectl create namespace production`
+   `helm upgrade production -n production ./reddit --install`
+   `kubectl create namespace staging`
+   `helm upgrade staging --namespace staging ./reddit --install`
+5. Установка grafana: \
+   `helm upgrade --install grafana stable/grafana \` \
+   `--set "adminPassword=admin" \` \
+   `--set "service.type=NodePort" \` \
+   `--set "ingress.enabled=true" \` \
+   `--set "ingress.hosts={reddit-grafana}" `
+6. Установка стэка EFK: \
+   `helm repo add elastic https://helm.elastic.co`
+   `helm upgrade --install elasticsearch -f elasticsearch_custom_values.yaml elastic/elasticsearch`
+   `helm upgrade --install kibana -f kibana_custom_values.yaml elastic/kibana`
+   `helm upgrade --install fluentd -f fluentd_custom_values.yaml stable/fluentd`
