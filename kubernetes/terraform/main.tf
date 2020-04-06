@@ -14,7 +14,9 @@ resource "google_container_cluster" "cluster-1" {
   location                 = var.zone
   remove_default_node_pool = true
   initial_node_count       = 1
-  # version = "1.15.9-gke.26"
+  enable_legacy_abac       = true
+  monitoring_service       = "none"
+  logging_service          = "none"
 
 
   master_auth {
@@ -68,8 +70,8 @@ resource "google_compute_firewall" "firewall-gke-reddit" {
     protocol = "tcp"
     ports    = ["30000-32767"]
   }
-  direction = "INGRESS"
-  priority = "1000"
+  direction     = "INGRESS"
+  priority      = "1000"
   source_ranges = ["0.0.0.0/0"]
   target_tags   = var.nodes-tag
 }
