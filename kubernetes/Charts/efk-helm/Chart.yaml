@@ -1,0 +1,10 @@
+apiVersion: v1
+description: elasticsearch logging chart
+name: elasticsearch-fluentd-kibana
+version: 1.0.0
+description: EFK Stack
+maintainers:
+    - name: AV
+      email: av@av.ru
+appVersion: 1.0
+icon: https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo-square.png
